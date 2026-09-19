@@ -5,8 +5,9 @@ on:
     branches: [ main ]
 
 env:
-  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-  SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+  VERCEL_TOKEN: ${{ vcp_6F01qTll0lVKg6AjfzvgVJsq4l5YOnLb7SF8aAClccu3T9DsG142tZMK }}
+  SUPABASE_SERVICE_ROLE_KEY: ${{ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2anhqc2p3dXdlZWNpbGNxcWhiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTgwNjQ3NiwiZXhwIjoyMTA1MzgyNDc2fQ.LSt5YAVzwzenGOTzarHle8A1UzFXRqcE8gPYV3Tq8Po
+ }}
 
 jobs:
   deploy:
