@@ -33,8 +33,8 @@ jobs:
         uses: @vercel/vercel-action@latest
         with:
           publish-dir: 'hotel-growth-os/client/.output'
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          repo-token: ${{ github.token }}
+          vercel-token: "vcp_2UlZcLegtkAaJa70aXijrRu9YGXUEMYmjDceiRLmjqi4FsTv293a9fih"
+          repo-token: "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"
 
       # 💻 Link Supabase project and set up CLI for secure deployments
       - name: Set up Supabase CLI 🛠️
@@ -47,4 +47,8 @@ jobs:
           cd ./hotel-growth-os/backend && \
           npx supabase db push --project https://gvjxjsjwuweecilcqqhb.supabase.co/rls.json
         env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_ACCESS_TOKEN: "sbp_90afbf2f20d563860997abdf4a80ec5d176d3494"
+          SUPABASE_SERVICE_ROLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2anhqc2p3dXdlZWNpbGNxcWhiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTgwNjQ3NiwiZXhwIjoyMTA1MzgyNDc2fQ.LSt5YAVzwzenGOTzarHle8A1UzFXRqcE8gPYV3Tq8Po"
+          VERCEL_API_KEY: "vck_7q9YVwrsxK3hwDJuareFVp8rAiy6xlwOPu5vpPUwYfYA3Gtquv22JRh8"
+          AI_GATEWAY_API_KEY: "vck_7q9YVwrsxK3hwDJuareFVp8rAiy6xlwOPu5vpPUwYfYA3Gtquv22JRh8"
+          GITHUB_PAT: "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"
