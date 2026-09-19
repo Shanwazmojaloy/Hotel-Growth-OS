@@ -1,0 +1,49 @@
+{
+  "window": "2024-10 \u2192 2025-09",
+  "months_of_history": 12,
+  "total_room_nights": 13480.0,
+  "available_room_nights": 26280,
+  "occupancy": 0.513,
+  "adr_bdt": 10977.655,
+  "revpar_bdt": 5630.852,
+  "total_room_revenue_bdt": 147978786.0,
+  "ota_room_nights": 9862.0,
+  "ota_share": 0.732,
+  "ota_gross_bdt": 108680000.0,
+  "ota_commission_bdt": 19562400.0,
+  "effective_ota_commission": 0.18,
+  "direct_room_nights": 2742.0,
+  "direct_share": 0.203,
+  "direct_revenue_bdt": 30059807.0,
+  "direct_adr_bdt": 10962.73,
+  "direct_room_nights_per_month": 228.5,
+  "direct_room_nights_per_room_per_month": 3.174,
+  "seasonality": {
+    "2024-10": 1.11,
+    "2024-11": 1.34,
+    "2024-12": 1.65,
+    "2025-01": 1.5,
+    "2025-02": 1.32,
+    "2025-03": 1.17,
+    "2025-04": 0.96,
+    "2025-05": 0.81,
+    "2025-06": 0.46,
+    "2025-07": 0.42,
+    "2025-08": 0.55,
+    "2025-09": 0.7
+  },
+  "peak_months": [
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03"
+  ],
+  "dead_months": [
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09"
+  ],
+  "gaps": []
+}

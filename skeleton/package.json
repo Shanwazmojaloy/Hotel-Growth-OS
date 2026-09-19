@@ -1,0 +1,18 @@
+{
+  "name": "hotel-growth-os-skeleton",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Runnable core of the Hotel Growth OS security spec: RLS migrations, adversarial test suite, mutation harness, worker guards.",
+  "scripts": {
+    "verify": "bash scripts/verify_all.sh",
+    "census": "python3 scripts/ci/policy_census.py db/migrations/*.sql",
+    "guard": "bash scripts/ci/guard_service_role.sh",
+    "typecheck": "tsc -p tsconfig.json",
+    "test:rls": "bash db/tests/run_tests.sh",
+    "test:mutations": "bash db/tests/mutation_test.sh"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

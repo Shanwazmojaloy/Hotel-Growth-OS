@@ -1,0 +1,9 @@
+date,hotel,step,minutes,notes
+2026-01-05,seabreeze,baseline capture,35,"measurement baseline --hotel; verified with owner"
+2026-01-05,seabreeze,access grants,90,"GA4+GSC+Ads+GBP; GBP manager invite took 2 days to accept"
+2026-01-06,seabreeze,tracking verification,120,"conversion event was firing on the wrong page - found by audit, fixed"
+2026-01-07,seabreeze,data audit,20,"audit clean after the conversion fix"
+2026-01-08,seabreeze,knowledge interview,45,"brand voice + offers; recorded call, transcribed"
+2026-01-08,seabreeze,measurement plan,60,"counterfactual agreed: pre_post, trend factor 1.06"
+2026-01-09,seabreeze,spend ceiling and approvers,25,"ceiling 50k written; owner is approver, operator for posts"
+2026-01-12,seabreeze,first report dry run,70,"generated, read together, two wording changes"

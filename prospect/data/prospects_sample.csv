@@ -1,0 +1,10 @@
+name,city,segment,rooms,adr_bdt,occupancy,ota_share,effective_ota_commission,direct_share,contact,notes
+"Beach resort — 72 rooms (archetype A)",Cox's Bazar,beach resort,72,11000,0.51,0.73,0.180,,front desk manager,"Archetype, not a real property — replace with your own research. Large OTA dependency, strong ADR"
+"Gulshan business hotel — 120 rooms (archetype B)",Dhaka,upscale business,120,18000,0.70,0.40,0.150,0.28,gm,"Low OTA share: corporate contracts already do the work. Commission pool is large but the conversation is different"
+"Mid-range beach hotel — 45 rooms (archetype C)",Cox's Bazar,mid-range,45,7500,0.55,0.68,0.170,,owner,"The likely sweet spot: 68% OTA dependence, ADR high enough for the saving to matter"
+"Business hotel — 60 rooms (archetype D)",Chattogram,business,60,8000,0.58,0.60,0.160,,gm,"Healthy mix — direct already reasonable, still commission worth working on"
+"Boutique hotel — 30 rooms (archetype E)",Sylhet,boutique,30,6000,0.51,0.77,0.150,,owner,"High dependency but thin ADR and low volume — check whether the engagement can pay for itself"
+"Dhaka mid-market — 40 rooms (archetype F)",Dhaka,mid-market,40,7000,0.60,0.62,0.160,,owner,"Volume adequate, ADR modest. Marginal; test before signing"
+"Eco lodge — 18 rooms (archetype G)",Sundarbans,eco lodge,18,12000,0.40,0.80,0.200,,owner,"Excellent ADR and dependency, but 18 rooms means the capturable pool is small. Watch list"
+"Airport hotel — 85 rooms (archetype H)",Dhaka,airport transit,85,9500,0.66,0.52,0.155,,revenue manager,"Good volume, moderate OTA share, transit demand is largely OTA-driven"
+"Seasonal beach resort — 50 rooms (archetype I)",Cox's Bazar,seasonal,50,8500,0.38,0.75,0.180,,owner,"Very low occupancy — an empty-rooms problem, not a channel-mix problem. Harder conversation"

@@ -1,0 +1,41 @@
+name,area,listed_price_usd,source_id,missing,note
+"Lakeshore Hotel & Apartments","Gulshan",165.08,S6,rooms,"Live rate captured; room count not published in any source fetched"
+"Platinum Grand","Banani",89.06,S6,rooms,"$60 in the directory vs $89 on Booking — also a price conflict to resolve"
+"Sky City Hotel Dhaka","Malibagh",88.55,S6,rooms,"$50 in the directory vs $88.55 on Booking"
+"Fars Hotel & Resorts","Bijoynagar",43.00,S3,rooms,"437 KAYAK reviews — heavy OTA presence; a strong candidate once rooms are known"
+"Priyo Nibash Stylish Residential","Panthapath",39.22,S6,rooms,"424 Booking reviews — one of the highest OTA review counts in Dhaka"
+"Hotel Shuktara","Indira Road",98.67,S6,rooms,"Price conflict: $25 (directory) vs $98.67 (Booking) — resolve before screening"
+"The Capital Ltd.","Naya Paltan",55.00,S6,rooms,"244 Booking reviews, rated 9.1"
+"Hotel Omni Residency","Banani",48.00,S3,rooms,
+"The Zabeer Dhaka","Dhaka",68.00,S3,rooms,"Boutique positioning"
+"Bengal Blueberry","Gulshan-2",55.00,S3,rooms,
+"Royal Park Residence","Banani",49.00,S3,rooms,
+"Pearl Hotel","Banani",54.00,S3,rooms,
+"Best Western Plus Runway","Airport corridor",102.00,S3,rooms,"Airport-corridor franchise property"
+"West Park Inn","Banani",21.00,S3,rooms,"490 Booking reviews — heavy OTA dependence at a low rate"
+"D'More Dhaka Hotel & Resort","Banani",41.00,S3,rooms,
+"Grand Vistana","Uttara",43.00,S3,rooms,
+"Hotel Afford Inn","Uttara",26.00,S3,rooms,
+"Quality Inn Dhaka","Gulshan-2",28.00,S3,rooms,
+"Hotel Victory","Naya Paltan",22.00,S3,rooms,
+"Hotel Studio23","Kawran Bazar",31.00,S3,rooms,
+"Richmond Hotel & Suites","Uttara",28.00,S3,rooms,
+"White Palace Hotel","Uttara / Tongi",32.00,S3,rooms,
+"Holiday Xpress","Airport / Dakshinkhan",26.00,S3,rooms,
+"Hotel Blue Bird","Uttara",14.00,S3,rooms,"Lowest listed rate seen in Dhaka"
+"Hotel West Valley","Baridhara / Uttara",33.00,S3,rooms,"Price conflict: $33 (directory) vs $75.90 (Booking)"
+"The Castle Inn","Uttara",28.00,S3,rooms,
+"Ambassador Hotel Dhanmondi","Dhanmondi",33.00,S3,rooms,
+"Crown Palace Residence","Uttara",26.00,S3,rooms,
+"Asia Hotel & Resorts","Dhaka",59.20,S6,rooms,"Price conflict: $36 vs $59.20",
+"Imperial Swiss Garden","Gulshan",96.14,S6,rooms,
+"Nascent Gardenia Baridhara","Baridhara",101.20,S6,rooms,
+"Ascott The Residence","Baridhara",136.62,S6,rooms,"Price conflict: $63 (directory) vs $136.62 (Booking)",
+"THE WAY Dhaka","Gulshan",165.95,S6,rooms,"Upscale boutique, rate suggests a top-tier property",
+"Hotel Capital Xpress","Dhaka",47.44,S6,rooms,"Rated 8.7 from Booking reviews",
+"Aristocrat Inn","Gulshan",66.10,S6,rooms,
+"Lakeshore Heights","Gulshan",125.82,S6,rooms,"Price conflict: $68 (directory) vs $125.82 (Booking)",
+"Empyrean Dhaka City Centre","Mohakhali",41.00,S3,rooms,
+"Marino Hotel","Airport corridor",49.00,S7,rooms,"KAYAK £38 — airport positioning"
+"Hotel Tropical Daisy","Dhaka",22.00,S7,rooms,
+"Blossom Hotel","Dhaka",28.00,S7,rooms,

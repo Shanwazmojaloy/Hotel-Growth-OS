@@ -1,0 +1,72 @@
+// hotel-growth-os/frontend/src/components/DashboardSummary.tsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'; // Assumes configured Axios instance for API calls
+
+interface HealthMetrics {
+    occupancy: number; // Percentage
+    average_adp: number; // Revenue per room night
+    total_guest_value?: number; // CRM LTV summary (optional)
+}
+
+const DashboardSummary: React.FC<{ hotelId: string }> = ({ hotelId }) => {
+    const [metrics, setMetrics] = useState<HealthMetrics | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null>;
+
+    useEffect(() => {
+        // In a real app, this would fetch from /api/v1/hotels/{hotelId}/health-summary
+        const fetchMetrics = async () => {
+            try {
+                setLoading(true);
+                console.log(`Fetching metrics for Hotel ID: ${hotelId}`);
+                
+                // --- MOCK API CALL START ---
+                // Simulate a successful API call that returns our AnalyticsService data
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network latency
+                const mockData: HealthMetrics = {
+                    occupancy: Math.floor(Math.random() * 35) + 40, // Mocking 40-75% occupancy
+                    average_adp: (Math.random() * 150 + 100).toFixed(2),
+                    total_guest_value: (Math.random() * 600000).toFixed(0)
+                };
+                setMetrics(mockData);
+                // --- MOCK API CALL END ---
+
+            } catch (err) {
+                console.error("Failed to fetch metrics:", err);
+                setError("Could not load performance data at this time.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMetrics();
+    }, [hotelId]); // Re-run effect when hotel ID changes
+
+
+    if (loading) return <div className="text-center p-8">⏳ Loading Hotel Growth OS data...</div>;
+    if (error) return <div className="p-4 bg-red-100 text-red-700 rounded">{error}</div>;
+
+    return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Occupancy Card */}
+            <div className="bg-white p-6 shadow-xl border-l-4 border-blue-500 rounded-lg">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Occupancy</h3>
+                <p className="mt-2 text-4xl font-bold text-gray-900">{metrics?.occupancy}%</p>
+            </div>
+
+            {/* ADR Card */}
+            <div className="bg-white p-6 shadow-xl border-l-4 border-green-500 rounded-lg">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Avg. Revenue/Room</h3>
+                <p className="mt-2 text-4xl font-bold text-gray-900">${metrics?.average_adp}</p>
+            </div>
+
+            {/* LTV Card */}
+            <div className="bg-white p-6 shadow-xl border-l-4 border-purple-500 rounded-lg">
+                <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider">Guest Lifetime Value</h3>
+                <p className="mt-2 text-3xl font-bold text-gray-900">${metrics?.total_guest_value ? (parseFloat(metrics.total_guest_value) / 1000).toFixed(1) : 'N/A'}k</p>
+            </div>
+        </div>
+    );
+};
+
+export default DashboardSummary;

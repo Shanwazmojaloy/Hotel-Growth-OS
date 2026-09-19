@@ -1,0 +1,15 @@
+{
+  "name": "Hotel_Growth_OS_Core",
+  "description": "The fully architected backend engine for Hotel Growth OS.",
+  "contents": [
+    "hotel-growth-os/core/__init__.py",
+    "hotel-growth-os/core/models.py",
+    "hotel-growth-os/core/serializers.py",
+    "hotel-growth-os/core/views.py",
+    "hotel-growth-os/core/api_views.py",
+    "hotel-growth-os/core/permissions.py",
+    "hotel-growth-os/core/services.py",
+    "hotel-growth-os/tests/test_bookings.py" 
+  ]
+}
+{{"name": "read_file_lines", "arguments": {"lines_to_read": 1000, "path": "hotel-growth-os/Hotel_Growth_OS_SRS.json", "start_line": 1}}}

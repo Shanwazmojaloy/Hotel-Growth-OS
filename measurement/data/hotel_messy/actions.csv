@@ -1,0 +1,17 @@
+date,agent,action,action_class,decision,outcome
+2025-10-08,media_buying,add_negative_keywords,reversible_reducing,auto,executed
+2025-10-08,media_buying,lower_bid,reversible_reducing,auto,executed
+2025-10-08,content,build_report,reversible_neutral,auto,executed
+2025-10-08,media_buying,raise_budget,financial_increasing,approved,executed
+2025-10-08,content,publish_gbp_post,irreversible_brand,approved,executed
+2025-10-08,content,publish_gbp_post,irreversible_brand,rejected,rejected
+2025-11-08,media_buying,add_negative_keywords,reversible_reducing,auto,executed
+2025-11-08,media_buying,lower_bid,reversible_reducing,auto,executed
+2025-11-08,content,build_report,reversible_neutral,auto,executed
+2025-11-08,media_buying,raise_budget,financial_increasing,approved,executed
+2025-11-08,content,publish_gbp_post,irreversible_brand,approved,executed
+2025-12-08,media_buying,add_negative_keywords,reversible_reducing,auto,executed
+2025-12-08,media_buying,lower_bid,reversible_reducing,auto,executed
+2025-12-08,content,build_report,reversible_neutral,auto,executed
+2025-12-08,media_buying,raise_budget,financial_increasing,approved,executed
+2025-12-08,content,publish_gbp_post,irreversible_brand,approved,executed
