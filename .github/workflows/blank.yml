@@ -1,0 +1,43 @@
+name: CI/CD Pipeline - Hotel Growth OS
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (frontend)
+        run: npm install --silent
+        working-directory: ./client
+
+      - name: Install backend dependencies
+        run: |
+          echo "Using Supabase Service Role Key"
+          export SUPABASE_KEY="${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
+          # Add any additional deployment commands here
+
+      - name: Run frontend tests (if needed)
+        if: ${{ always() }}
+        run: npm test -- --watch
+        working-directory: ./client
+
+      - name: Build and deploy to Vercel
+        uses: @vercel/merge-action@v2
+        with:
+          vercel-token: "${{ secrets.VERCEL_TOKEN }}"
+          # Add any additional configuration options as needed
+
