@@ -33,8 +33,8 @@ jobs:
         uses: @vercel/vercel-action@latest
         with:
           publish-dir: 'hotel-growth-os/client/.output'
-          vercel-token: "vcp_2UlZcLegtkAaJa70aXijrRu9YGXUEMYmjDceiRLmjqi4FsTv293a9fih"
-          repo-token: "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"
+          vercel-token: "vcp_5026WpBJYE3GxuA5ZykNJ1mJ1jZTT0ojqPYbUFfE9ZQmak1pej3pj1qd"
+          repo-token: "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"
 
       # 💻 Link Supabase project and set up CLI for secure deployments
       - name: Set up Supabase CLI 🛠️
