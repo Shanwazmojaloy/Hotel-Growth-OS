@@ -3,76 +3,48 @@ name: Deploy Hotel Growth OS
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
-env:
-  VERCEL_TOKEN: "vcp_6F01qTll0lVKg6AjfzvgVJsq4l5YOnLb7SF8aAClccu3T9DsG142tZMK"
-  VERCEL_API_KEY: "vck_7q9YVwrsxK3hwDJuareFVp8rAiy6xlwOPu5vpPUwYfYA3Gtquv22JRh8"
-  AI_GATEWAY_API_KEY: "vck_7q9YVwrsxK3hwDJuareFVp8rAiy6xlwOPu5vpPUwYfYA3Gtquv22JRh8"
-  GITHUB_TOKEN: "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"
-  GITHUB_PAT: "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"
-  SUPABASE_ACCESS_TOKEN: "sbp_90afbf2f20d563860997abdf4a80ec5d176d3494"
-  SUPABASE_API_KEY: "sbp_0416ad6f5ec2664ce5c4bb5408c17458c4726037"
-  SUPABASE_SERVICE_ROLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2anhqc2p3dXdlZWNpbGNxcWhiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTgwNjQ3NiwiZXhwIjoyMTA1MzgyNDc2fQ.LSt5YAVzwzenGOTzarHle8A1UzFXRqcE8gPYV3Tq8Po"
-  SUPABASE_PROJECT_URL: "https://gvjxjsjwuweecilcqqhb.supabase.co"
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+
+      # ✨ Install secure dependencies (npm ci)
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ✨ Client Deployment (Vercel)
-      - name: Set up Node.js for Frontend
-        uses: actions/setup-node@v3.1.0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.1
         with:
-          node-version: '18'
+          node-version: '20'
 
-      - name: Install Dependencies (Client)
-        run: npm install --silent
-        working-directory: ./hotel-growth-os/client
-
-      - name: Build Client Application
-        if: ${{ always() }}
+      - name: Install dependencies
         run: |
-          cd ./hotel-growth-os/client && npm run build &&
-          echo "Frontend built successfully to directory: client/build"
-        working-directory: ./hotel-growth-os/
+          cd ./hotel-growth-os/client && \
+          npm ci --cache .npm --prefer-offline || npm ci
 
-      # ✨ Deployment (Vercel)
-      - name: Deploy Frontend to Vercel
-        uses: @vercel/merge-action@v7.0.5
+      # 💥 Build & deploy frontend (Vercel)
+      - name: Vercel deploy
+        uses: @vercel/vercel-action@latest
         with:
-          vercel-token: "vcp_6F01qTll0lVKg6AjfzvgVJsq4l5YOnLb7SF8aAClccu3T9DsG142tZMK"
-          publish-dir: 'hotel-growth-os/client/build'
-          subdomain: hotel-growth-os.vercel.app
+          publish-dir: 'hotel-growth-os/client/.output'
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          repo-token: ${{ github.token }}
 
-      # 💻 Backend Deployment (Supabase)
-      - name: Set up Node.js for Backend
-        uses: actions/setup-node@v3.1.0
+      # 💻 Link Supabase project and set up CLI for secure deployments
+      - name: Set up Supabase CLI 🛠️
+        uses: supabase/setup-cli@v0.1.5
         with:
-          node-version: '18'
+          version: 1.3
 
-      # ⚙️ Supabase Migrations & Functions
-      - name: Run Database Migrations
-        if: ${{ always() }}
+      - name: Push database migrations to production 🌐
         run: |
-          echo "Running migrations..."
-          cd ./hotel-growth-os/backend && 
-          npx supabase db push --local &&
-          echo "Database migration completed"
+          cd ./hotel-growth-os/backend && \
+          npx supabase db push --project https://gvjxjsjwuweecilcqqhb.supabase.co/rls.json
         env:
-          SUPABASE_ACCESS_TOKEN: "sbp_90afbf2f20d563860997abdf4a80ec5d176d3494"
-          SUPABASE_SERVICE_ROLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2anhqc2p3dXdlZWNpbGNxcWhiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTgwNjQ3NiwiZXhwIjoyMTA1MzgyNDc2fQ.LSt5YAVzwzenGOTzarHle8A1UzFXRqcE8gPYV3Tq8Po"
-
-      # 💥 Cloud Functions Deployment
-      - name: Deploy Backend Functions to Supabase
-        if: ${{ always() }}
-        run: |
-          echo "Deploying backend functions..."
-          cd ./hotel-growth-os/backend && 
-          npx supabase functions deploy --project https://gvjxjsjwuweecilcqqhb.supabase.co &&
-          echo "Backend deployment completed"
-        env:
-          SUPABASE_ACCESS_TOKEN: "sbp_90afbf2f20d563860997abdf4a80ec5d176d3494"
-          SUPABASE_SERVICE_ROLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2anhqc2p3dXdlZWNpbGNxcWhiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTgwNjQ3NiwiZXhwIjoyMTA1MzgyNDc2fQ.LSt5YAVzwzenGOTzarHle8A1UzFXRqcE8gPYV3Tq8Po"
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
