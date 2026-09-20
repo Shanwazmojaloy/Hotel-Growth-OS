@@ -1,79 +1,83 @@
 name: Deploy Hotel Growth OS - Production CI/CD
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 env:
-  SUPABASE_PROJECT_ID: gvjxjsjwuweecilcqqhb
-  NODE_VERSION: '20'
-  FRONTEND_BUILD_DIR: ./hotel-growth-os/client/build
+  SUPABASE_PROJECT_ID: gvjxjsjwuweecilcqqhb
+  NODE_VERSION: '20'
+  FRONTEND_BUILD_DIR: ./hotel-growth-os/client/build
+
+# Keep the workflow token read-only; deployment credentials are supplied per step.
+permissions:
+  contents: read
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment: production
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
 
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # ===========================================
-      # ✨ STAGE 1: FRONTEND BUILD AND VERCEL DEPLOYMENT
-      # ===========================================
-      - name: Set up Node.js for Frontend
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-          cache-dependency-path: hotel-growth-os/client/package-lock.json
+      # ===========================================
+      # ✨ STAGE 1: FRONTEND BUILD AND VERCEL DEPLOYMENT
+      # ===========================================
+      - name: Set up Node.js for Frontend
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: hotel-growth-os/client/package-lock.json
 
-      - name: Install Client Dependencies (npm ci)
-        working-directory: ./hotel-growth-os/client
-        run: npm ci --silent
+      - name: Install Client Dependencies (npm ci)
+        working-directory: ./hotel-growth-os/client
+        run: npm ci --silent
 
-      - name: Build Frontend Application
-        working-directory: ./hotel-growth-os/client
-        run: |
-          echo "Starting frontend build..."
-          npm run build
+      - name: Build Frontend Application
+        working-directory: ./hotel-growth-os/client
+        run: |
+          echo "Starting frontend build..."
+          npm run build
 
-      - name: Deploy to Vercel (Production)
-        uses: vercel/action@v1
-        with:
-          vercel-token: ${{ vcp_50NYK9JYMMHrZ0KwxtvvZGoAh5Z4IWD10g2S14SER9Klu9TZT71r34v4 }}
-          alias: hotel-growth-os.vercel.app
-          project-id: ${{ prj_Y99MJMwozu2hVtRdheM4clNffuhX }}
-          git-branch: main
+      - name: Deploy to Vercel (Production)
+        uses: vercel/action@v1
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          alias: hotel-growth-os.vercel.app
+          project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          git-branch: main
 
-      # ===========================================
-      # 💻 STAGE 2: BACKEND DEPLOYMENT (Supabase)
-      # ===========================================
-      - name: Set up Node.js for Backend CLI
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+      # ===========================================
+      # 💻 STAGE 2: BACKEND DEPLOYMENT (Supabase)
+      # ===========================================
+      - name: Set up Node.js for Backend CLI
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install Supabase CLI Tooling
-        run: npm install -g supabase
+      - name: Install Supabase CLI Tooling
+        run: npm install -g supabase
 
-      - name: Run Database Migrations (Production Push)
-        working-directory: ./hotel-growth-os/backend
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ sbp_1cb01997f09c882b0a33d997a669f666e354d404}}
-        run: |
-          echo "Attempting to push database changes..."
-          npx supabase db push --project-ref "gvjxjsjwuweecilcqqhb"
+      - name: Run Database Migrations (Production Push)
+        working-directory: ./hotel-growth-os/backend
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "Attempting to push database changes..."
+          npx supabase db push --project-ref "${{ env.SUPABASE_PROJECT_ID }}"
 
-      - name: Deploy Supabase Functions (Edge Functions)
-        working-directory: ./hotel-growth-os/backend
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ sbp_1cb01997f09c882b0a33d997a669f666e354d404}}
-        run: |
-          echo "Attempting to deploy Edge Functions..."
-          npx supabase functions deploy --project-ref "gvjxjsjwuweecilcqqhb"
+      - name: Deploy Supabase Functions (Edge Functions)
+        working-directory: ./hotel-growth-os/backend
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "Attempting to deploy Edge Functions..."
+          npx supabase functions deploy --project-ref "${{ env.SUPABASE_PROJECT_ID }}"
