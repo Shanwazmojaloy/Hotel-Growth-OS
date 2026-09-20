@@ -47,13 +47,22 @@ jobs:
           echo "Starting frontend build..."
           npm run build
 
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
       - name: Deploy to Vercel (Production)
-        uses: vercel/action@v1
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          alias: hotel-growth-os.vercel.app
-          project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          git-branch: main
+        working-directory: ./hotel-growth-os/client
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        run: |
+          echo "Deploying frontend to Vercel..."
+          if [ -n "${VERCEL_ORG_ID:-}" ]; then
+            npx vercel deploy --prod --token "$VERCEL_TOKEN" --scope "$VERCEL_ORG_ID" --project "$VERCEL_PROJECT_ID" --yes
+          else
+            npx vercel deploy --prod --token "$VERCEL_TOKEN" --project "$VERCEL_PROJECT_ID" --yes
+          fi
 
       # ===========================================
       # 💻 STAGE 2: BACKEND DEPLOYMENT (Supabase)
