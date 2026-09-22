@@ -76,6 +76,7 @@ jobs:
         run: supabase db push
 
       - name: Deploy Supabase Edge Functions
+        if: ${{ hashFiles('supabase/functions/**') != '' }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: supabase functions deploy --project-ref "$SUPABASE_PROJECT_ID"
