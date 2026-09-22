@@ -22,7 +22,9 @@ export const createClient = (request: NextRequest) => {
         },
         setAll(cookiesToSet) {
           // 2. Set all cookies on the response object for downstream handlers to read/write.
-          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value, options))
+          cookiesToSet.forEach(({ name, value, options }) =>
+            request.cookies.set({ name, value, ...options })
+          )
 
           // 3. Update the response object with the necessary session data.
           supabaseResponse = NextResponse.next({
