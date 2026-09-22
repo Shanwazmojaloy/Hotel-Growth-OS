@@ -15,8 +15,6 @@ jobs:
 
     env:
       SUPABASE_PROJECT_ID: gvjxjsjwuweecilcqqhb
-      VERCEL_PROJECT_ID: prj_AIF7pH1Io1NES3XdbMAeBEdKj4eV
-      VERCEL_ORG_ID: team_l1SAECyZJ9giIw4o2SGxjpqd
 
     steps:
       - name: Checkout code
@@ -91,44 +89,21 @@ jobs:
             exit 1
           }
 
-      - name: Verify Vercel project access
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
-        run: |
-          if ! npx --yes vercel@latest project inspect "$VERCEL_PROJECT_ID" \
-            --token="$VERCEL_TOKEN" \
-            --scope="$VERCEL_ORG_ID" \
-            --non-interactive; then
-            echo "VERCEL_TOKEN cannot access project $VERCEL_PROJECT_ID in team $VERCEL_ORG_ID"
-            echo "Verify the token, team membership, and project ownership in Vercel."
-            exit 1
-          fi
-
       - name: Link Vercel project
         working-directory: ./client
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
         run: |
           npx --yes vercel@latest link \
             --yes \
-            --token="$VERCEL_TOKEN" \
-            --scope="$VERCEL_ORG_ID" \
-            --project="$VERCEL_PROJECT_ID"
+            --token="$VERCEL_TOKEN"
 
       - name: Deploy frontend to Vercel (Production)
         working-directory: ./client
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
         run: |
           npx --yes vercel@latest deploy \
             --prod \
             --token="$VERCEL_TOKEN" \
-            --scope="$VERCEL_ORG_ID" \
-            --project="$VERCEL_PROJECT_ID" \
             --yes
