@@ -101,7 +101,7 @@ jobs:
           npx --yes vercel@latest link \
             --yes \
             --token="$VERCEL_TOKEN" \
-            --team="$VERCEL_ORG_ID" \
+            --scope="$VERCEL_ORG_ID" \
             --project="$VERCEL_PROJECT_ID"
 
       - name: Deploy frontend to Vercel (Production)
