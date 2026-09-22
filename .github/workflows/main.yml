@@ -91,6 +91,21 @@ jobs:
             exit 1
           }
 
+      - name: Verify Vercel project access
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
+        run: |
+          if ! npx --yes vercel@latest project inspect "$VERCEL_PROJECT_ID" \
+            --token="$VERCEL_TOKEN" \
+            --scope="$VERCEL_ORG_ID" \
+            --non-interactive; then
+            echo "VERCEL_TOKEN cannot access project $VERCEL_PROJECT_ID in team $VERCEL_ORG_ID"
+            echo "Verify the token, team membership, and project ownership in Vercel."
+            exit 1
+          fi
+
       - name: Link Vercel project
         working-directory: ./client
         env:
