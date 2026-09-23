@@ -83,9 +83,21 @@ jobs:
       - name: Validate Vercel credentials
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
         run: |
           test -n "$VERCEL_TOKEN" || {
             echo "VERCEL_TOKEN is not configured"
+            exit 1
+          }
+
+          test -n "$VERCEL_ORG_ID" || {
+            echo "VERCEL_ORG_ID is not configured; set the Vercel team ID in repository or environment variables."
+            exit 1
+          }
+
+          test -n "$VERCEL_PROJECT_ID" || {
+            echo "VERCEL_PROJECT_ID is not configured; set the Vercel project ID in repository or environment variables."
             exit 1
           }
 
@@ -93,17 +105,23 @@ jobs:
         working-directory: ./client
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
         run: |
           npx --yes vercel@latest link \
             --yes \
-            --token="$VERCEL_TOKEN"
+            --token="$VERCEL_TOKEN" \
+            --scope="$VERCEL_ORG_ID" \
+            --project="$VERCEL_PROJECT_ID"
 
       - name: Deploy frontend to Vercel (Production)
         working-directory: ./client
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
         run: |
           npx --yes vercel@latest deploy \
             --prod \
+            --yes \
             --token="$VERCEL_TOKEN" \
-            --yes
+            --scope="$VERCEL_ORG_ID"
