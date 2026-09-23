@@ -1,0 +1,298 @@
+# Figma design-intel source ledger — BRIEF v2
+# status: fetched        = body retrieved by a plain text fetcher and read
+#         untested       = in the v1 list, not retrieved in this pass
+#         nav-confirmed  = seen as a live Figma Community navigation entry today
+#         zero-items     = URL resolves but returned no listing items (treat as a FAILED source)
+#         url-unverified = named in third-party sources, page not confirmed
+#
+# Observed in this pass: 9 of the 24 v1 URLs. 15 remain untested — record their status
+# on your own run rather than inheriting an assumption.
+
+v1_sources:
+  - id: 1
+    url: https://www.figma.com/design/
+    title: Figma Design (marketing)
+    tier: T2
+    type: marketing-page
+    status: fetched
+    observed: product positioning, video marketing, customer logo wall, "95% of the Fortune 500" claim (Mar 2025 data)
+    yield: positioning copy only — no methodology
+
+  - id: 2
+    url: https://www.figma.com/templates/
+    title: Templates hub
+    tier: T1
+    type: marketing-page
+    status: untested
+
+  - id: 3
+    url: https://www.figma.com/figjam/brainstorming-tool/
+    title: FigJam brainstorming tool
+    tier: T2
+    type: marketing-page
+    status: untested
+
+  - id: 4
+    url: https://www.figma.com/wireframe-tool/
+    title: Wireframe tool
+    tier: T2
+    type: marketing-page
+    status: fetched
+    observed: one-line positioning plus a customer logo wall (Atlassian, GitHub, NYT, Slack, Zoom…)
+    yield: low — 15 minutes for zero methodology
+
+  - id: 5
+    url: https://www.figma.com/ui-design-tool/
+    title: UI design tool
+    tier: T2
+    type: marketing-page
+    status: untested
+
+  - id: 6
+    url: https://www.figma.com/ux-design-tool/
+    title: UX design tool
+    tier: T2
+    type: marketing-page
+    status: untested
+
+  - id: 7
+    url: https://help.figma.com/hc/en-us/categories/41274596092695
+    title: Figma Motion — help centre
+    tier: T1
+    type: help-doc
+    status: fetched
+    observed: sections "Tour the interface" and "Animate your designs"; articles for the Motion timeline,
+      preset animation styles, keyframes, easing, anchor point, motion paths, stroke path trim
+    yield: HIGH — this is the motion source v1 declared unobservable
+
+  - id: 8
+    url: https://help.figma.com/hc/en-us/categories/360002042553
+    title: Figma Design — help centre
+    tier: T1
+    type: help-doc
+    status: fetched
+    observed: sections Tour the interface, Create designs, Figma Draw, Build design systems, Create prototypes,
+      Import and export, Work together in files; article list includes the Figma agent in design files,
+      AI tools in Figma Design, and "Turn coded screens into editable design layers"
+    yield: HIGH — the system-level source
+
+  - id: 9
+    url: https://www.figma.com/community
+    title: Figma Community index
+    tier: T1
+    type: category-index
+    status: fetched
+    observed: full live taxonomy — design resources, AI workflows (marketing/ideation/character/product-brand),
+      websites (12 verticals), Figma Make, extensions (plugins, shaders, weave tools, skills, apps and MCP
+      clients, widgets, editing & effects, file organization, development, accessibility tools),
+      whiteboarding, presentations, Riffs (Beta)
+    yield: HIGH — defines the current surface and therefore the source list
+
+  - id: 10
+    url: https://www.figma.com/community/website-templates/portfolio?resource_type=files
+    title: Portfolio website templates
+    tier: T2
+    type: category-listing
+    status: untested
+
+  - id: 11
+    url: https://www.figma.com/community/website-templates/landing-pages?resource_type=files
+    title: Landing page templates
+    tier: T2
+    type: category-listing
+    status: untested
+
+  - id: 12
+    url: https://www.figma.com/community/website-templates/business?resource_type=files
+    title: Business website templates
+    tier: T2
+    type: category-listing
+    status: untested
+
+  - id: 13
+    url: https://www.figma.com/community/website-templates/saas?resource_type=files
+    title: SaaS website templates
+    tier: T1
+    type: category-listing
+    status: fetched
+    observed: Figma-authored prose + FAQ — homepage/features/pricing/sign-up as the core page set; lead with
+      the value proposition before plan details; clear tier names; highlight the most popular tier
+    yield: HIGH for methodology, no item cards returned
+
+  - id: 14
+    url: https://www.figma.com/community/website-templates/fashion?resource_type=files
+    title: Fashion website templates
+    tier: T3
+    type: category-listing
+    status: untested
+
+  - id: 15
+    url: https://www.figma.com/community/website-templates/restaurant?resource_type=files
+    title: Restaurant website templates
+    tier: T1
+    type: category-listing
+    status: fetched
+    observed: Figma-authored prose + FAQ — menu, location, hours and contact above the fold; aim to load
+      under 3 seconds; accurate NAP details; correct schema markup for local search
+    yield: HIGH for methodology; directly reusable for the hotel pack's property pages
+
+  - id: 16
+    url: https://www.figma.com/community/ui-kits?resource_type=files&editor_type=figma
+    title: UI kits
+    tier: T2
+    type: category-listing
+    status: zero-items
+    observed: page title reports "4,770+ Free UI Kits" but the filtered URL returned no listing items
+    yield: FAILED SOURCE as specified — re-run unfiltered, or in a browser
+
+  - id: 17
+    url: https://www.figma.com/community/wireframes?resource_type=files&editor_type=figma
+    title: Wireframes
+    tier: T2
+    type: category-listing
+    status: untested
+
+  - id: 18
+    url: https://www.figma.com/community/portfolio-templates?resource_type=files&editor_type=figma
+    title: Portfolio templates
+    tier: T3
+    type: category-listing
+    status: untested
+
+  - id: 19
+    url: https://www.figma.com/community/design-templates?resource_type=files&editor_type=figma
+    title: Design templates
+    tier: T2
+    type: category-listing
+    status: untested
+
+  - id: 20
+    url: https://www.figma.com/community/mobile-apps?resource_type=files&editor_type=figma
+    title: Mobile apps
+    tier: T2
+    type: category-listing
+    status: untested
+
+  - id: 21
+    url: https://www.figma.com/community/icons?resource_type=files
+    title: Icons
+    tier: T3
+    type: asset-listing
+    status: untested
+
+  - id: 22
+    url: https://www.figma.com/community/shapes-colors?resource_type=files
+    title: Shapes & colours
+    tier: T3
+    type: asset-listing
+    status: untested
+
+  - id: 23
+    url: https://www.figma.com/community/fonts-typography?resource_type=files
+    title: Fonts & typography
+    tier: T2
+    type: asset-listing
+    status: untested
+
+  - id: 24
+    url: https://www.figma.com/community/ai-workflows?resource_type=files&editor_type=weave
+    title: AI workflows (Weave)
+    tier: T1
+    type: category-listing
+    status: fetched
+    observed: six workflow entries returned with engagement data — Automated Ads (277 likes / 8k),
+      MockFit (339 / 6k), Meta Ads for a product (315 / 5.8k); subcategories Product & brand, Marketing,
+      Character & narrative, Ideation
+    yield: HIGH — the only v1 source class observed returning per-resource data
+
+
+# Additions required by BRIEF v2 — the 2026 surface v1 omitted.
+additions:
+  - url: https://www.figma.com/community/ai-skills
+    title: Figma Skills
+    tier: T1
+    type: category-listing
+    status: nav-confirmed
+    note: reusable instructions for the Figma agent — direct analogue of the agency skill in agency-kit/
+  - url: https://www.figma.com/community/apps
+    title: Apps and MCP clients
+    tier: T1
+    type: category-listing
+    status: nav-confirmed
+    note: the MCP surface; Dev Mode MCP server requires a paid seat
+  - url: https://www.figma.com/community/tools
+    title: Weave tools
+    tier: T2
+    type: category-listing
+    status: nav-confirmed
+  - url: https://www.figma.com/community/make
+    title: Figma Make gallery
+    tier: T1
+    type: category-listing
+    status: nav-confirmed
+    note: prompt-built web apps — compare against a hand-built landing page on cost and control
+  - url: https://www.figma.com/make/
+    title: Figma Make (product)
+    tier: T2
+    type: marketing-page
+    status: nav-confirmed
+  - url: https://www.figma.com/motion/
+    title: Figma Motion (product)
+    tier: T2
+    type: marketing-page
+    status: nav-confirmed
+  - url: https://www.figma.com/draw/
+    title: Figma Draw (product)
+    tier: T3
+    type: marketing-page
+    status: nav-confirmed
+  - url: https://www.figma.com/community/shaders
+    title: Shaders
+    tier: T3
+    type: asset-listing
+    status: nav-confirmed
+  - url: https://www.figma.com/community/accessibility
+    title: Accessibility tools
+    tier: T2
+    type: category-listing
+    status: nav-confirmed
+    note: v1 asked for an accessibility checklist and never listed the category built for it
+  - url: https://www.figma.com/community/development
+    title: Development
+    tier: T2
+    type: category-listing
+    status: nav-confirmed
+  - url: https://www.figma.com/community/presentations?editor_type=slides
+    title: Presentations (Slides)
+    tier: T3
+    type: category-listing
+    status: nav-confirmed
+  - url: https://www.figma.com/community/marketing-ai-workflows?resource_type=files&editor_type=weave
+    title: Marketing AI workflows
+    tier: T2
+    type: category-listing
+    status: nav-confirmed
+  - url: https://www.figma.com/community/product-brand-ai-workflows?resource_type=files&editor_type=weave
+    title: Product & brand AI workflows
+    tier: T2
+    type: category-listing
+    status: nav-confirmed
+  - url: https://www.figma.com/pricing/
+    title: Figma pricing
+    tier: T1
+    type: marketing-page
+    status: fetched
+    observed: product tabs are Design, Make, Draw, Dev Mode, FigJam, Slides, Motion, Sites, Buzz; Starter =
+      unlimited drafts + 150 AI credits/day up to 500/month; Professional Full $16 / Dev $12 / Collab $3 per
+      month annual-effective (+3,000 AI credits on a Full seat) and it is where "Advanced Dev Mode inspection
+      and MCP Server" appears; Organization $55 / $25 / $5; Enterprise $90 / $35 / $5; Variable modes 10 / 20 /
+      unlimited via extended collections; Motion and Sites betas are Full-seat only, Buzz beta is all seats
+    note: the "3 files / 30-day history" Starter limits circulating in secondary summaries describe team
+      files — the pricing page says unlimited drafts; Code Connect on Organization/Enterprise remains
+      secondary-sourced
+  - url: https://www.figma.com/sites/
+    title: Figma Sites
+    tier: T3
+    type: marketing-page
+    status: confirmed-on-pricing-page
+    note: beta, Full seats only
