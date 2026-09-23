@@ -35,6 +35,9 @@ jobs:
 
       - name: Build frontend
         working-directory: ./client
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
         run: npm run build
 
       # --- Supabase Backend Deployment Steps ---
@@ -83,8 +86,8 @@ jobs:
       - name: Validate Vercel credentials
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID || secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
         run: |
           test -n "$VERCEL_TOKEN" || {
             echo "VERCEL_TOKEN is not configured"
@@ -92,12 +95,22 @@ jobs:
           }
 
           test -n "$VERCEL_ORG_ID" || {
-            echo "VERCEL_ORG_ID is not configured; set the Vercel team ID in repository or environment variables."
+            echo "VERCEL_ORG_ID is not configured; set it as a GitHub variable or secret."
             exit 1
           }
 
           test -n "$VERCEL_PROJECT_ID" || {
-            echo "VERCEL_PROJECT_ID is not configured; set the Vercel project ID in repository or environment variables."
+            echo "VERCEL_PROJECT_ID is not configured; set it as a GitHub variable or secret."
+            exit 1
+          }
+
+          test -n "${{ vars.NEXT_PUBLIC_SUPABASE_URL }}" || {
+            echo "NEXT_PUBLIC_SUPABASE_URL is not configured as a GitHub variable."
+            exit 1
+          }
+
+          test -n "${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}" || {
+            echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is not configured as a GitHub variable."
             exit 1
           }
 
@@ -105,8 +118,8 @@ jobs:
         working-directory: ./client
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID || secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
         run: |
           npx --yes vercel@latest link \
             --yes \
@@ -118,10 +131,16 @@ jobs:
         working-directory: ./client
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+          VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID || secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID || secrets.VERCEL_PROJECT_ID }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
         run: |
           npx --yes vercel@latest deploy \
             --prod \
             --yes \
             --token="$VERCEL_TOKEN" \
-            --scope="$VERCEL_ORG_ID"
+            --scope="$VERCEL_ORG_ID" \
+            --project="$VERCEL_PROJECT_ID" \
+            --build-env NEXT_PUBLIC_SUPABASE_URL="$NEXT_PUBLIC_SUPABASE_URL" \
+            --build-env NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="$NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"
