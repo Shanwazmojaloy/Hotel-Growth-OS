@@ -43,8 +43,11 @@ jobs:
       - name: Set up Supabase CLI
         uses: supabase/setup-cli@v1
         with:
-          version: latest
-
+          version: 1.200.0
+        env:
+         GITHUB_TOKEN: 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
+         SUPABASE_PROJECT_ID: gvjxjsjwuweecilcqphb
+          
       - name: Link Supabase project
         working-directory: ./hotel-growth-os/backend
         env:
@@ -69,14 +72,13 @@ jobs:
         run: supabase functions deploy --project-ref "$SUPABASE_PROJECT_ID"
 
       # --- Vercel Frontend Deployment ---
-      - name: Deploy frontend to Vercel (Production)
-        uses: amondnet/vercel-action@v25
-        with:
-          working-directory: ./hotel-growth-os/client
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ env.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+      - - name: Deploy frontend to Vercel (Production)
+          run: npx vercel deploy --prod --yes
+          env:
+            VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+            VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+            NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
 
       # --- START: CORRECTED VERCEL DEPLOYMENT BLOCK ---
       - name: Deploy to Vercel (Production)
