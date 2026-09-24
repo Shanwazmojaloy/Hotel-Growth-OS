@@ -61,14 +61,36 @@ jobs:
             exit 1
           }
 
+      - name: Validate Supabase project access
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          set -o pipefail
+          projects_file="$(mktemp)"
+
+          if ! supabase projects list --output json > "$projects_file"; then
+            echo "SUPABASE_ACCESS_TOKEN was rejected by Supabase."
+            echo "Replace it with a Supabase Personal Access Token for a user who can access project $SUPABASE_PROJECT_ID."
+            exit 1
+          fi
+
+          if ! grep -q "\"id\": \"$SUPABASE_PROJECT_ID\"" "$projects_file"; then
+            echo "The authenticated Supabase account cannot access project $SUPABASE_PROJECT_ID."
+            echo "Grant the token owner access to the project or organization, then retry."
+            exit 1
+          fi
+
       - name: Link Supabase project
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: |
-          supabase link \
-            --project-ref "$SUPABASE_PROJECT_ID" \
-            --password "$SUPABASE_DB_PASSWORD"
+          if ! supabase link \
+              --project-ref "$SUPABASE_PROJECT_ID" \
+              --password "$SUPABASE_DB_PASSWORD"; then
+            echo "Supabase project linking failed. Verify SUPABASE_DB_PASSWORD matches project $SUPABASE_PROJECT_ID."
+            exit 1
+          fi
 
       - name: Push database migrations
         env:
